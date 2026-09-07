@@ -27,6 +27,47 @@ const greetings = [
   "bună ziua"
 ];
 
+const gifs = {
+  slaps: [
+    "https://klipy.com/gifs/cat-kitty-6UD",
+    "https://klipy.com/gifs/orange-cat-slap"
+  ],
+
+  kicks: [
+    "https://klipy.com/gifs/take-that-cat",
+    "https://klipy.com/gifs/cat-sent-flying"
+  ],
+
+  dances: [
+    "https://klipy.com/gifs/cat-showercap-slyonicz"
+  ],
+
+  waves: [
+    "https://klipy.com/gifs/cat-meme-wave-emoji",
+    "https://klipy.com/gifs/hello-friend-waving-hand"
+  ],
+
+  bonks: [
+    "https://klipy.com/gifs/cat-head-bonk-cat-loaf-slap",
+    "https://klipy.com/gifs/cat-hammer-cat-being-hit-on-the-head-with-a-hammer"
+  ],
+
+  pats: [
+    "https://klipy.com/gifs/cat-cat-pet",
+    "https://klipy.com/gifs/pat-cat-gyB"
+  ],
+
+  hugs: [
+    "https://klipy.com/gifs/cat-love-LNG",
+    "https://klipy.com/gifs/cat-cats-155"
+  ],
+
+  "high-fives": [
+    "https://klipy.com/gifs/cat-cat-high-five",
+    "https://klipy.com/gifs/high-five-cat-five"
+  ]
+};
+
 const commands = [
   new SlashCommandBuilder()
     .setName("interact")
@@ -36,13 +77,16 @@ const commands = [
         .setName("action")
         .setDescription("What do you want to do?")
         .setRequired(true)
-        .addChoices(
-          { name: "slap", value: "slaps" },
-          { name: "hug", value: "hugs" },
-          { name: "highfive", value: "high-fives" },
-          { name: "pat", value: "pats" },
-          { name: "bonk", value: "bonks" }
-        )
+       .addChoices(
+  { name: "slap", value: "slaps" },
+  { name: "hug", value: "hugs" },
+  { name: "highfive", value: "high-fives" },
+  { name: "pat", value: "pats" },
+  { name: "bonk", value: "bonks" },
+  { name: "wave", value: "waves" },
+  { name: "dance", value: "dances" },
+  { name: "kick", value: "kicks" }
+)
     )
     .addUserOption(option =>
       option
@@ -77,8 +121,12 @@ client.on("interactionCreate", async (interaction) => {
     const action = interaction.options.getString("action");
     const user = interaction.options.getUser("user");
 
+    const actionGifs = gifs[action];
+    const randomGif =
+      actionGifs[Math.floor(Math.random() * actionGifs.length)];
+
     await interaction.reply(
-      `${interaction.user} ${action} ${user} 👋🐱`
+      `${interaction.user} ${action} ${user} 👋🐱\n${randomGif}`
     );
   }
 });
