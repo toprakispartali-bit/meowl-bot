@@ -24,6 +24,7 @@ const greetings = [
   "gamarjoba",
   "გამარჯობა",
   "buna ziua",
+  "orospu",
   "bună ziua"
 ];
 
